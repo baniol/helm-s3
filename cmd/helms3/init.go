@@ -11,8 +11,9 @@ import (
 )
 
 type initAction struct {
-	uri string
-	acl string
+	uri    string
+	acl    string
+	region string
 }
 
 func (act initAction) Run(ctx context.Context) error {
@@ -21,7 +22,7 @@ func (act initAction) Run(ctx context.Context) error {
 		return errors.WithMessage(err, "get index reader")
 	}
 
-	sess, err := awsutil.Session()
+	sess, err := awsutil.Session(awsutil.SetRegion(act.region))
 	if err != nil {
 		return err
 	}

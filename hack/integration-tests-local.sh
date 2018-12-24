@@ -13,6 +13,7 @@ docker container run -d --name helm-s3-minio \
     -p 9000:9000 \
     -e MINIO_ACCESS_KEY=$AWS_ACCESS_KEY_ID \
     -e MINIO_SECRET_KEY=$AWS_SECRET_ACCESS_KEY \
+    -e MINIO_REGION=us-east-1 \
     minio/minio:latest server /data &>/dev/null
 
 MCGOPATH=${GOPATH}/src/github.com/minio/mc

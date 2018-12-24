@@ -13,7 +13,7 @@ helm fetch stable/postgresql --version 0.8.3
 # Test: init repo
 #
 
-helm s3 init s3://test-bucket/charts
+helm s3 init --region us-east-1 s3://test-bucket/charts
 if [ $? -ne 0 ]; then
     echo "Failed to initialize repo"
     exit 1

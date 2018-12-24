@@ -26,6 +26,12 @@ func AssumeRoleTokenProvider(provider func() (string, error)) SessionOption {
 	}
 }
 
+func SetRegion(region string) SessionOption {
+	return func(options *session.Options) {
+		options.Config.Region = aws.String(region)
+	}
+}
+
 // Session returns an AWS session as described http://docs.aws.amazon.com/sdk-for-go/v1/developer-guide/configuring-sdk.html
 func Session(opts ...SessionOption) (*session.Session, error) {
 	disableSSL := false
