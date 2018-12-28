@@ -24,7 +24,7 @@ fi
 
 PATH=${MCGOPATH}:${PATH}
 mc config host add helm-s3-minio http://localhost:9000 $AWS_ACCESS_KEY_ID $AWS_SECRET_ACCESS_KEY
-mc mb helm-s3-minio/test-bucket
+mc mb helm-s3-minio/test-bucket --region us-east-1
 
 go build -o bin/helms3 ./cmd/helms3
 

@@ -13,11 +13,31 @@ helm fetch stable/postgresql --version 0.8.3
 # Test: init repo
 #
 
-helm s3 init --region us-east-1 s3://test-bucket/charts
+# Read region from AWS_DEFAULT_REGION environment variable
+
+helm s3 init s3://test-bucket/charts
 if [ $? -ne 0 ]; then
     echo "Failed to initialize repo"
     exit 1
 fi
+
+# Read region from parameter
+
+helm s3 init --region us-east-1 s3://test-bucket/charts
+if [ $? -ne 0 ]; then
+    echo "Failed to initialize repo with specified"
+    exit 1
+fi
+
+set +e # next command should return non-zero statu
+
+helm s3 init --region eu-central-1 s3://test-bucket/charts
+if [ $? -eq 0 ]; then
+    echo "Repository cannot be initiated with incorrect region"
+    exit 1
+fi
+
+set -e
 
 mc ls helm-s3-minio/test-bucket/charts/index.yaml
 if [ $? -ne 0 ]; then
